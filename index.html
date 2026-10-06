@@ -1,0 +1,2425 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/x-icon" href="icon.png"> 
+  <title>কিভাবে Research শুরু করতে হয়? — Beginner to Researcher</title>
+  <!-- Google Fonts & Font Awesome 6 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300..800&family=Noto+Sans+Bengali:wght@300..800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    /* ===== RESET & GLOBAL ===== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary: #0B1120;
+      --primary-light: #0F172A;
+      --secondary: #1E293B;
+      --accent: #3B82F6;
+      --accent-dark: #2563EB;
+      --accent-glow: rgba(59, 130, 246, 0.35);
+      --highlight: #14B8A6;
+      --highlight-glow: rgba(20, 184, 166, 0.3);
+      --amber: #F59E0B;
+      --rose: #F43F5E;
+      --bg: #F1F5F9;
+      --bg-card: #FFFFFF;
+      --bg-elevated: #F8FAFC;
+      --text: #0F172A;
+      --text-muted: #64748B;
+      --text-light: #94A3B8;
+      --border: rgba(15, 23, 42, 0.06);
+      --border-strong: rgba(15, 23, 42, 0.1);
+      --shadow-xs: 0 1px 2px rgba(0,0,0,0.04);
+      --shadow-sm: 0 4px 12px rgba(15,23,42,0.05);
+      --shadow-md: 0 8px 28px rgba(15,23,42,0.08);
+      --shadow-lg: 0 20px 48px rgba(15,23,42,0.12);
+      --shadow-glow: 0 0 40px rgba(59,130,246,0.12);
+      --radius-sm: 10px;
+      --radius: 16px;
+      --radius-lg: 24px;
+      --radius-xl: 32px;
+      --nav-height: 76px;
+      --font-main: 'Inter', 'Noto Sans Bengali', 'Poppins', sans-serif;
+      --font-display: 'Poppins', 'Noto Sans Bengali', 'Inter', sans-serif;
+    }
+
+    html { font-size: 16px; }
+
+    body {
+      font-family: var(--font-main);
+      background: #060A14;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      overflow: hidden;
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* ===== PRESENTATION WRAPPER ===== */
+    .presentation-wrapper {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 0%, rgba(59,130,246,0.08), transparent),
+        radial-gradient(ellipse 60% 50% at 80% 100%, rgba(20,184,166,0.06), transparent),
+        #060A14;
+    }
+
+    .presentation {
+      position: relative;
+      width: 100%;
+      max-width: 1920px;
+      aspect-ratio: 16 / 9;
+      max-height: 100vh;
+      background: var(--bg);
+      overflow: hidden;
+      box-shadow: 0 0 100px rgba(0,0,0,0.5);
+      display: flex;
+      flex-direction: column;
+      transition: background 0.4s ease;
+    }
+
+    /* Dark mode */
+    .presentation.dark {
+      --bg: #0B1120;
+      --bg-card: #131C2E;
+      --bg-elevated: #1A2540;
+      --text: #F1F5F9;
+      --text-muted: #94A3B8;
+      --text-light: #64748B;
+      --border: rgba(255,255,255,0.06);
+      --border-strong: rgba(255,255,255,0.1);
+      --shadow-sm: 0 4px 12px rgba(0,0,0,0.3);
+      --shadow-md: 0 8px 28px rgba(0,0,0,0.4);
+      --shadow-lg: 0 20px 48px rgba(0,0,0,0.5);
+    }
+
+    /* ===== SLIDES CONTAINER ===== */
+    .slides-container {
+      flex: 1;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .slide {
+      position: absolute;
+      inset: 0;
+      padding: 48px 72px 36px;
+      display: flex;
+      flex-direction: column;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1), transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      transform: translateX(30px) scale(0.99);
+      overflow-y: auto;
+      pointer-events: none;
+    }
+
+    .slide.active {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(0) scale(1);
+      pointer-events: auto;
+      z-index: 2;
+    }
+
+    .slide.previous {
+      transform: translateX(-30px) scale(0.99);
+    }
+
+    .slide::-webkit-scrollbar { width: 5px; }
+    .slide::-webkit-scrollbar-track { background: transparent; }
+    .slide::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 4px; }
+
+    /* ===== TYPOGRAPHY ===== */
+    .slide h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2.2rem, 3.8vw, 3.8rem);
+      font-weight: 800;
+      line-height: 1.12;
+      color: var(--text);
+      margin-bottom: 0.35em;
+      letter-spacing: -0.03em;
+    }
+
+    .slide h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.7rem, 2.6vw, 2.6rem);
+      font-weight: 700;
+      line-height: 1.18;
+      color: var(--text);
+      margin-bottom: 0.5em;
+      letter-spacing: -0.02em;
+    }
+
+    .slide h3 {
+      font-size: clamp(1rem, 1.4vw, 1.4rem);
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 0.25em;
+      letter-spacing: -0.01em;
+    }
+
+    .slide p, .slide li {
+      font-size: clamp(0.9rem, 1.1vw, 1.15rem);
+      line-height: 1.65;
+      color: var(--text-muted);
+    }
+
+    .slide .subtitle {
+      font-size: clamp(1.05rem, 1.5vw, 1.5rem);
+      color: var(--text-muted);
+      font-weight: 400;
+    }
+
+    .highlight-text { color: var(--accent); font-weight: 700; }
+    .accent-text { color: var(--highlight); font-weight: 700; }
+
+    /* ===== SLIDE HEADER ===== */
+    .slide-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+      flex-shrink: 0;
+    }
+
+    .slide-tag {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      background: rgba(59, 130, 246, 0.1);
+      padding: 7px 16px;
+      border-radius: 100px;
+      border: 1px solid rgba(59, 130, 246, 0.15);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .slide-number {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-light);
+      font-variant-numeric: tabular-nums;
+      letter-spacing: 0.05em;
+    }
+
+    /* ===== SLIDE BODY ===== */
+    .slide-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-height: 0;
+    }
+
+    /* ===== COVER SLIDE ===== */
+    .cover-slide {
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 56px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cover-bg {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .cover-bg::before {
+      content: '';
+      position: absolute;
+      top: -40%;
+      left: -20%;
+      width: 700px;
+      height: 700px;
+      background: radial-gradient(circle, rgba(59,130,246,0.12), transparent 70%);
+      border-radius: 50%;
+      animation: floatSlow 20s ease-in-out infinite;
+    }
+
+    .cover-bg::after {
+      content: '';
+      position: absolute;
+      bottom: -40%;
+      right: -20%;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(20,184,166,0.1), transparent 70%);
+      border-radius: 50%;
+      animation: floatSlow 25s ease-in-out infinite reverse;
+    }
+
+    @keyframes floatSlow {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(30px, -20px) scale(1.05); }
+    }
+
+    /* Grid pattern */
+    .cover-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(59,130,246,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(59,130,246,0.04) 1px, transparent 1px);
+      background-size: 48px 48px;
+      mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, #000 30%, transparent 80%);
+      -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, #000 30%, transparent 80%);
+    }
+
+    .cover-content {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+    }
+
+    .cover-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 20px;
+      background: rgba(59,130,246,0.08);
+      border: 1px solid rgba(59,130,246,0.2);
+      border-radius: 100px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--accent);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 28px;
+    }
+
+    .cover-badge i { font-size: 0.85rem; }
+
+    .cover-slide h1 {
+      font-size: clamp(2.6rem, 5vw, 5rem);
+      font-weight: 800;
+      margin-bottom: 0.15em;
+      line-height: 1.08;
+      max-width: 1100px;
+      background: linear-gradient(135deg, var(--text) 30%, var(--accent) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .presentation.dark .cover-slide h1 {
+      background: linear-gradient(135deg, #F1F5F9 30%, var(--accent) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .cover-slide .subtitle {
+      font-size: clamp(1.05rem, 1.6vw, 1.55rem);
+      color: var(--text-muted);
+      margin-bottom: 1.5em;
+      font-weight: 400;
+      max-width: 720px;
+    }
+
+    .cover-flow {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 6px 10px;
+      font-size: clamp(0.75rem, 0.9vw, 0.95rem);
+      color: var(--text-muted);
+      padding: 16px 28px;
+      background: var(--bg-card);
+      border-radius: 100px;
+      box-shadow: var(--shadow-md);
+      border: 1px solid var(--border);
+      max-width: 960px;
+      backdrop-filter: blur(10px);
+    }
+
+    .cover-flow .flow-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 500;
+      color: var(--text);
+      white-space: nowrap;
+    }
+
+    .cover-flow .flow-chip i {
+      color: var(--accent);
+      font-size: 0.8rem;
+    }
+
+    .cover-flow .arrow {
+      color: var(--accent);
+      font-weight: 300;
+      opacity: 0.5;
+    }
+
+    /* ===== CARDS GRID ===== */
+    .cards-grid {
+      display: grid;
+      gap: 18px;
+      width: 100%;
+    }
+
+    .cards-grid.cols-2 { grid-template-columns: repeat(2, 1fr); }
+    .cards-grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
+    .cards-grid.cols-4 { grid-template-columns: repeat(4, 1fr); }
+    .cards-grid.cols-5 { grid-template-columns: repeat(5, 1fr); }
+
+    .card {
+      background: var(--bg-card);
+      border-radius: var(--radius);
+      padding: 24px 22px;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border);
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--highlight));
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-md);
+      border-color: rgba(59,130,246,0.2);
+    }
+
+    .card:hover::before { opacity: 1; }
+
+    .card-icon-wrap {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(59,130,246,0.1);
+      color: var(--accent);
+      font-size: 1.3rem;
+      margin-bottom: 4px;
+      transition: transform 0.3s ease;
+    }
+
+    .card:hover .card-icon-wrap { transform: scale(1.08) rotate(-3deg); }
+
+    .card-icon-wrap.highlight {
+      background: rgba(20,184,166,0.1);
+      color: var(--highlight);
+    }
+
+    .card-icon-wrap.amber {
+      background: rgba(245,158,11,0.1);
+      color: var(--amber);
+    }
+
+    .card-icon-wrap.rose {
+      background: rgba(244,63,94,0.1);
+      color: var(--rose);
+    }
+
+    .card-icon {
+      font-size: 1.6rem;
+      color: var(--accent);
+      margin-bottom: 4px;
+    }
+
+    .card-icon.highlight { color: var(--highlight); }
+
+    .card-number {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .card h3 {
+      font-size: clamp(0.95rem, 1.15vw, 1.2rem);
+      margin-bottom: 0;
+      font-weight: 600;
+    }
+
+    .card p {
+      font-size: clamp(0.8rem, 0.95vw, 0.98rem);
+      color: var(--text-muted);
+      margin: 0;
+      line-height: 1.55;
+    }
+
+    .card .card-checklist {
+      list-style: none;
+      padding: 0;
+      margin-top: 4px;
+    }
+
+    .card .card-checklist li {
+      font-size: clamp(0.78rem, 0.9vw, 0.95rem);
+      color: var(--text-muted);
+      padding: 3px 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card .card-checklist li i {
+      color: var(--highlight);
+      font-size: 0.72rem;
+      flex-shrink: 0;
+    }
+
+    /* ===== FLOW DIAGRAMS ===== */
+    .flow-vertical {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .flow-vertical .flow-item {
+      background: var(--bg-card);
+      padding: 14px 36px;
+      border-radius: var(--radius-sm);
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border);
+      font-weight: 600;
+      font-size: clamp(0.88rem, 1.05vw, 1.05rem);
+      color: var(--text);
+      text-align: center;
+      min-width: 220px;
+      transition: all 0.3s ease;
+    }
+
+    .flow-vertical .flow-item:hover {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-glow);
+    }
+
+    .flow-vertical .flow-arrow {
+      color: var(--accent);
+      font-size: 1.1rem;
+      line-height: 1;
+      opacity: 0.6;
+    }
+
+    .flow-horizontal {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .flow-horizontal .flow-item {
+      background: var(--bg-card);
+      padding: 12px 26px;
+      border-radius: 100px;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border);
+      font-weight: 600;
+      font-size: clamp(0.8rem, 0.95vw, 0.98rem);
+      color: var(--text);
+      text-align: center;
+      white-space: nowrap;
+      transition: all 0.3s ease;
+    }
+
+    .flow-horizontal .flow-item:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .flow-horizontal .flow-arrow {
+      color: var(--accent);
+      font-size: 1rem;
+      opacity: 0.5;
+    }
+
+    /* ===== STEP BADGE ===== */
+    .step-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+      color: #fff;
+      padding: 7px 20px;
+      border-radius: 100px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      align-self: flex-start;
+      margin-bottom: 14px;
+      box-shadow: 0 4px 16px var(--accent-glow);
+    }
+
+    .step-badge i { font-size: 0.85rem; }
+
+    .step-badge.highlight {
+      background: linear-gradient(135deg, var(--highlight), #0D9488);
+      box-shadow: 0 4px 16px var(--highlight-glow);
+    }
+
+    /* ===== TABLE ===== */
+    .table-wrap {
+      background: var(--bg-card);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border);
+    }
+
+    .research-table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      font-size: clamp(0.82rem, 0.98vw, 1rem);
+    }
+
+    .research-table th {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: #fff;
+      padding: 14px 18px;
+      text-align: left;
+      font-weight: 600;
+      font-size: clamp(0.72rem, 0.85vw, 0.88rem);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .research-table td {
+      padding: 13px 18px;
+      border-bottom: 1px solid var(--border);
+      color: var(--text-muted);
+    }
+
+    .research-table tr:last-child td { border-bottom: none; }
+    .research-table tr:hover td { background: rgba(59,130,246,0.03); }
+
+    /* ===== CHART BARS ===== */
+    .chart-container {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      width: 100%;
+      padding: 16px 0;
+    }
+
+    .chart-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .chart-label {
+      min-width: 130px;
+      font-size: clamp(0.82rem, 1vw, 1rem);
+      font-weight: 600;
+      color: var(--text);
+      text-align: right;
+    }
+
+    .chart-bar-track {
+      flex: 1;
+      height: 32px;
+      background: rgba(15,23,42,0.04);
+      border-radius: 10px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .presentation.dark .chart-bar-track {
+      background: rgba(255,255,255,0.04);
+    }
+
+    .chart-bar-fill {
+      height: 100%;
+      border-radius: 10px;
+      background: linear-gradient(90deg, var(--accent), var(--highlight));
+      transition: width 1s cubic-bezier(0.22, 1, 0.36, 1);
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      padding-right: 12px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #fff;
+      min-width: 48px;
+      box-shadow: 0 2px 8px var(--accent-glow);
+    }
+
+    .chart-note {
+      font-size: 0.72rem;
+      color: var(--text-light);
+      font-style: italic;
+      text-align: center;
+      margin-top: 6px;
+    }
+
+    /* ===== SEARCH INTERFACE ===== */
+    .search-interface {
+      background: var(--bg-card);
+      border-radius: var(--radius);
+      padding: 18px 24px;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin: 10px 0;
+      transition: all 0.3s ease;
+    }
+
+    .search-interface:focus-within,
+    .search-interface:hover {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 4px var(--accent-glow);
+    }
+
+    .search-interface .search-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      background: rgba(59,130,246,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent);
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+
+    .search-interface .search-query {
+      flex: 1;
+      font-size: clamp(0.9rem, 1.05vw, 1.08rem);
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    .search-interface .search-query .keyword {
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    /* ===== COMPARISON COLUMNS ===== */
+    .comparison-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .comparison-col {
+      background: var(--bg-card);
+      border-radius: var(--radius);
+      padding: 26px 22px;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .comparison-col::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--accent);
+      opacity: 0.6;
+    }
+
+    .comparison-col:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .comparison-col h3 {
+      font-size: clamp(1rem, 1.25vw, 1.25rem);
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .comparison-col h3 i {
+      color: var(--accent);
+      font-size: 1.1rem;
+    }
+
+    .comparison-col .tag-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .comparison-col .tag-list span {
+      background: rgba(59,130,246,0.08);
+      color: var(--accent);
+      padding: 5px 14px;
+      border-radius: 100px;
+      font-size: clamp(0.72rem, 0.85vw, 0.88rem);
+      font-weight: 600;
+      border: 1px solid rgba(59,130,246,0.1);
+    }
+
+    .comparison-col.highlight-col {
+      border-color: rgba(20,184,166,0.3);
+      box-shadow: 0 0 0 3px rgba(20,184,166,0.1), var(--shadow-sm);
+    }
+
+    .comparison-col.highlight-col::before {
+      background: var(--highlight);
+      opacity: 1;
+    }
+
+    .comparison-col.highlight-col h3 i { color: var(--highlight); }
+
+    .comparison-col.highlight-col .tag-list span {
+      background: rgba(20,184,166,0.08);
+      color: var(--highlight);
+      border-color: rgba(20,184,166,0.1);
+    }
+
+    /* ===== TIMELINE ===== */
+    .vertical-timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      position: relative;
+      padding-left: 36px;
+    }
+
+    .vertical-timeline::before {
+      content: '';
+      position: absolute;
+      left: 13px;
+      top: 10px;
+      bottom: 10px;
+      width: 2px;
+      background: linear-gradient(180deg, var(--accent), var(--highlight));
+      opacity: 0.25;
+      border-radius: 2px;
+    }
+
+    .timeline-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 7px 0;
+      position: relative;
+    }
+
+    .timeline-item .timeline-dot {
+      position: absolute;
+      left: -36px;
+      top: 12px;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--accent);
+      border: 3px solid var(--bg);
+      box-shadow: 0 0 0 2px var(--accent), 0 0 12px var(--accent-glow);
+      flex-shrink: 0;
+      transition: transform 0.3s ease;
+    }
+
+    .timeline-item:hover .timeline-dot { transform: scale(1.2); }
+
+    .timeline-item .timeline-dot.highlight {
+      background: var(--highlight);
+      box-shadow: 0 0 0 2px var(--highlight), 0 0 12px var(--highlight-glow);
+    }
+
+    .timeline-item .timeline-text {
+      font-size: clamp(0.85rem, 1vw, 1.02rem);
+      font-weight: 600;
+      color: var(--text);
+      padding: 4px 0;
+    }
+
+    /* ===== PRIMARY vs SECONDARY ===== */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    /* ===== MISTAKE LIST ===== */
+    .mistake-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .mistake-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      background: var(--bg-card);
+      padding: 14px 22px;
+      border-radius: var(--radius-sm);
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border);
+      font-size: clamp(0.85rem, 1vw, 1.02rem);
+      color: var(--text);
+      font-weight: 500;
+      transition: all 0.25s ease;
+    }
+
+    .mistake-item:hover {
+      transform: translateX(6px);
+      border-color: rgba(244,63,94,0.25);
+      box-shadow: 0 4px 16px rgba(244,63,94,0.08);
+    }
+
+    .mistake-item .icon-red {
+      width: 32px;
+      height: 32px;
+      border-radius: 10px;
+      background: rgba(244,63,94,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--rose);
+      font-size: 0.9rem;
+      flex-shrink: 0;
+    }
+
+    /* ===== GOLDEN RULES ===== */
+    .golden-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px;
+    }
+
+    .golden-item {
+      background: var(--bg-card);
+      border-radius: var(--radius);
+      padding: 22px 18px;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border);
+      text-align: center;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .golden-item::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(59,130,246,0.04), transparent 60%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .golden-item:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-md);
+      border-color: rgba(59,130,246,0.2);
+    }
+
+    .golden-item:hover::after { opacity: 1; }
+
+    .golden-item .golden-number {
+      font-family: var(--font-display);
+      font-size: 1.9rem;
+      font-weight: 800;
+      color: var(--accent);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .golden-item .golden-text {
+      font-size: clamp(0.82rem, 0.98vw, 0.98rem);
+      font-weight: 600;
+      color: var(--text);
+      position: relative;
+      z-index: 1;
+    }
+
+    .golden-item:nth-child(even) .golden-number { color: var(--highlight); }
+
+    /* ===== FINAL SLIDE ===== */
+    .final-slide {
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 56px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .final-slide::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(20,184,166,0.08), transparent 70%);
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .final-slide .final-content {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .final-slide h1 {
+      font-size: clamp(2rem, 3.6vw, 3.6rem);
+      max-width: 1000px;
+      margin-bottom: 0.3em;
+      background: linear-gradient(135deg, var(--text) 40%, var(--accent) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .presentation.dark .final-slide h1 {
+      background: linear-gradient(135deg, #F1F5F9 40%, var(--accent) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .final-slide .big-statement {
+      font-size: clamp(1.05rem, 1.5vw, 1.5rem);
+      line-height: 1.7;
+      color: var(--text-muted);
+      margin-bottom: 0.6em;
+      font-weight: 400;
+    }
+
+    .final-slide .big-statement strong {
+      color: var(--text);
+      font-weight: 700;
+    }
+
+    .final-flow {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 6px 10px;
+      font-size: clamp(0.75rem, 0.9vw, 0.95rem);
+      color: var(--text-muted);
+      margin: 20px 0;
+      padding: 16px 32px;
+      background: var(--bg-card);
+      border-radius: 100px;
+      box-shadow: var(--shadow-md);
+      border: 1px solid var(--border);
+    }
+
+    .final-flow .arrow {
+      color: var(--accent);
+      opacity: 0.5;
+    }
+
+    .final-line {
+      font-family: var(--font-display);
+      font-size: clamp(1.1rem, 1.6vw, 1.6rem);
+      font-weight: 700;
+      color: var(--accent);
+      margin-top: 16px;
+      letter-spacing: -0.01em;
+    }
+
+    /* ===== NAVIGATION BAR ===== */
+    .navigation {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 32px;
+      background: var(--bg-card);
+      border-top: 1px solid var(--border);
+      flex-shrink: 0;
+      height: var(--nav-height);
+      gap: 16px;
+      z-index: 10;
+      position: relative;
+      backdrop-filter: blur(20px);
+    }
+
+    .nav-left, .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .nav-btn {
+      background: transparent;
+      border: 1px solid var(--border-strong);
+      border-radius: 12px;
+      padding: 9px 18px;
+      font-family: var(--font-main);
+      font-size: 0.83rem;
+      font-weight: 600;
+      color: var(--text);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      white-space: nowrap;
+    }
+
+    .nav-btn:hover {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+      box-shadow: 0 4px 16px var(--accent-glow);
+      transform: translateY(-1px);
+    }
+
+    .nav-btn:active { transform: translateY(0); }
+
+    .nav-btn:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+
+    .nav-btn.icon-only {
+      padding: 9px 12px;
+      font-size: 0.95rem;
+    }
+
+    .nav-center {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      flex: 1;
+      justify-content: center;
+    }
+
+    .slide-counter {
+      font-family: var(--font-display);
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      font-variant-numeric: tabular-nums;
+      min-width: 72px;
+      text-align: center;
+      letter-spacing: 0.05em;
+    }
+
+    .progress-bar-container {
+      flex: 1;
+      max-width: 420px;
+      height: 6px;
+      background: rgba(15,23,42,0.06);
+      border-radius: 100px;
+      overflow: hidden;
+    }
+
+    .presentation.dark .progress-bar-container {
+      background: rgba(255,255,255,0.06);
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent), var(--highlight));
+      border-radius: 100px;
+      transition: width 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+      width: 0%;
+      box-shadow: 0 0 12px var(--accent-glow);
+    }
+
+    /* ===== TABLE OF CONTENTS OVERLAY ===== */
+    .toc-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(6, 10, 20, 0.75);
+      backdrop-filter: blur(16px);
+      z-index: 100;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.35s ease, visibility 0.35s ease;
+    }
+
+    .toc-overlay.open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .toc-panel {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      padding: 40px 44px;
+      max-width: 680px;
+      width: 90%;
+      max-height: 82vh;
+      overflow-y: auto;
+      box-shadow: 0 32px 96px rgba(0,0,0,0.5);
+      transform: translateY(20px) scale(0.98);
+      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      border: 1px solid var(--border);
+    }
+
+    .toc-overlay.open .toc-panel {
+      transform: translateY(0) scale(1);
+    }
+
+    .toc-panel h2 {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      margin-bottom: 24px;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .toc-panel h2 i {
+      color: var(--accent);
+      font-size: 1.3rem;
+    }
+
+    .toc-list {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .toc-list li {
+      padding: 12px 18px;
+      border-radius: 12px;
+      cursor: pointer;
+      font-size: 0.98rem;
+      color: var(--text-muted);
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-weight: 500;
+    }
+
+    .toc-list li:hover {
+      background: rgba(59,130,246,0.08);
+      color: var(--accent);
+      transform: translateX(4px);
+    }
+
+    .toc-list li .toc-num {
+      font-family: var(--font-display);
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--accent);
+      min-width: 28px;
+      opacity: 0.7;
+    }
+
+    .toc-close {
+      position: absolute;
+      top: 24px;
+      right: 28px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: #fff;
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+      z-index: 101;
+    }
+
+    .toc-close:hover {
+      background: rgba(255,255,255,0.18);
+      transform: rotate(90deg);
+    }
+
+    /* ===== NOTE BOX ===== */
+    .note-box {
+      background: rgba(59,130,246,0.05);
+      border-left: 4px solid var(--accent);
+      padding: 16px 22px;
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      font-size: clamp(0.85rem, 1vw, 1.02rem);
+      color: var(--text);
+      font-weight: 500;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .note-box i {
+      color: var(--accent);
+      font-size: 1.05rem;
+      margin-top: 2px;
+      flex-shrink: 0;
+    }
+
+    .note-box.highlight {
+      background: rgba(20,184,166,0.05);
+      border-left-color: var(--highlight);
+    }
+
+    .note-box.highlight i { color: var(--highlight); }
+
+    /* ===== UTILITY ===== */
+    .text-center { text-align: center; }
+    .mt-1 { margin-top: 0.5rem; }
+    .mt-2 { margin-top: 1rem; }
+    .mt-3 { margin-top: 1.5rem; }
+    .mb-1 { margin-bottom: 0.5rem; }
+    .mb-2 { margin-bottom: 1rem; }
+    .mb-3 { margin-bottom: 1.5rem; }
+    .gap-1 { gap: 0.5rem; }
+    .gap-2 { gap: 1rem; }
+    .flex { display: flex; }
+    .flex-col { flex-direction: column; }
+    .items-center { align-items: center; }
+    .justify-center { justify-content: center; }
+    .flex-wrap { flex-wrap: wrap; }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 1366px) {
+      .slide { padding: 36px 48px 28px; }
+      .cover-slide { padding: 44px 56px; }
+      .final-slide { padding: 44px 56px; }
+    }
+
+    @media (max-width: 1024px) {
+      .slide { padding: 28px 32px 20px; }
+      .slide h1 { font-size: 1.9rem; }
+      .slide h2 { font-size: 1.45rem; }
+      .cover-slide h1 { font-size: 2.2rem; }
+      .cover-slide { padding: 32px 36px; }
+      .final-slide { padding: 32px 36px; }
+      .cards-grid.cols-5 { grid-template-columns: repeat(3, 1fr); }
+      .cards-grid.cols-4 { grid-template-columns: repeat(2, 1fr); }
+      .comparison-3 { grid-template-columns: 1fr; }
+      .two-col { grid-template-columns: 1fr; }
+      .navigation { padding: 10px 18px; height: 64px; }
+      .nav-btn { font-size: 0.75rem; padding: 7px 13px; }
+      .nav-btn .btn-label { display: none; }
+      .toc-panel { padding: 28px 24px; }
+    }
+
+    @media (max-width: 768px) {
+      .slide { padding: 20px 20px 16px; }
+      .slide h1 { font-size: 1.55rem; }
+      .slide h2 { font-size: 1.18rem; }
+      .cover-slide h1 { font-size: 1.7rem; }
+      .cover-slide { padding: 22px 18px; }
+      .final-slide { padding: 22px 18px; }
+      .cover-flow { font-size: 0.68rem; padding: 10px 14px; }
+      .cards-grid.cols-5 { grid-template-columns: repeat(2, 1fr); }
+      .cards-grid.cols-4 { grid-template-columns: repeat(2, 1fr); }
+      .cards-grid.cols-3 { grid-template-columns: 1fr 1fr; }
+      .golden-grid { grid-template-columns: repeat(2, 1fr); }
+      .flow-horizontal { flex-direction: column; }
+      .flow-horizontal .flow-arrow { transform: rotate(90deg); }
+      .progress-bar-container { max-width: 140px; }
+      .slide-counter { font-size: 0.72rem; min-width: 48px; }
+      .chart-label { min-width: 80px; font-size: 0.72rem; }
+    }
+
+    @media (max-width: 480px) {
+      .cards-grid.cols-5 { grid-template-columns: 1fr; }
+      .cards-grid.cols-4 { grid-template-columns: 1fr; }
+      .cards-grid.cols-3 { grid-template-columns: 1fr; }
+      .golden-grid { grid-template-columns: 1fr; }
+      .progress-bar-container { max-width: 70px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ===== PRESENTATION WRAPPER ===== -->
+<div class="presentation-wrapper">
+  <div class="presentation" id="presentation">
+
+    <!-- ===== SLIDES CONTAINER ===== -->
+    <div class="slides-container" id="slidesContainer">
+
+      <!-- ===== SLIDE 01 — COVER ===== -->
+      <section class="slide cover-slide active" data-index="0">
+        <div class="cover-bg">
+          <div class="cover-grid"></div>
+        </div>
+        <div class="cover-content">
+          <div class="cover-badge">
+            <i class="fas fa-graduation-cap"></i>
+            Research Workshop
+          </div>
+          <h1>কিভাবে Research শুরু করতে হয়?</h1>
+          <p class="subtitle">Beginner থেকে Researcher হওয়ার Practical Roadmap</p>
+          <div class="cover-flow">
+            <span class="flow-chip"><i class="fas fa-crosshairs"></i> Topic</span>
+            <span class="arrow"><i class="fas fa-arrow-right"></i></span>
+            <span class="flow-chip"><i class="fas fa-question-circle"></i> Question</span>
+            <span class="arrow"><i class="fas fa-arrow-right"></i></span>
+            <span class="flow-chip"><i class="fas fa-book-open"></i> Literature</span>
+            <span class="arrow"><i class="fas fa-arrow-right"></i></span>
+            <span class="flow-chip"><i class="fas fa-search"></i> Gap</span>
+            <span class="arrow"><i class="fas fa-arrow-right"></i></span>
+            <span class="flow-chip"><i class="fas fa-flask"></i> Method</span>
+            <span class="arrow"><i class="fas fa-arrow-right"></i></span>
+            <span class="flow-chip"><i class="fas fa-database"></i> Data</span>
+            <span class="arrow"><i class="fas fa-arrow-right"></i></span>
+            <span class="flow-chip"><i class="fas fa-chart-line"></i> Analysis</span>
+            <span class="arrow"><i class="fas fa-arrow-right"></i></span>
+            <span class="flow-chip"><i class="fas fa-file-alt"></i> Paper</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== SLIDE 02 — Research আসলে কী? ===== -->
+      <section class="slide" data-index="1">
+        <div class="slide-header">
+          <span class="slide-tag"><i class="fas fa-lightbulb"></i> Introduction</span>
+          <span class="slide-number">02 / 24</span>
+        </div>
+        <div class="slide-body">
+          <h2>Research কী?</h2>
+          <p class="mb-2" style="max-width:920px; font-size:clamp(1rem,1.25vw,1.25rem);">
+            Research হলো কোনো নির্দিষ্ট প্রশ্ন বা সমস্যার উত্তর খুঁজে বের করার জন্য একটি
+            <strong class="highlight-text">systematic</strong> এবং
+            <strong class="highlight-text">evidence-based</strong> investigation।
+          </p>
+          <div class="cards-grid cols-3 mb-3">
+            <div class="card text-center">
+              <div class="card-icon-wrap" style="margin:0 auto 8px;"><i class="fas fa-question"></i></div>
+              <h3>Question</h3>
+              <p>আমি কী জানতে চাই?</p>
+            </div>
+            <div class="card text-center">
+              <div class="card-icon-wrap highlight" style="margin:0 auto 8px;"><i class="fas fa-database"></i></div>
+              <h3>Evidence</h3>
+              <p>কী প্রমাণ পাওয়া যাচ্ছে?</p>
+            </div>
+            <div class="card text-center">
+              <div class="card-icon-wrap amber" style="margin:0 auto 8px;"><i class="fas fa-cogs"></i></div>
+              <h3>Method</h3>
+              <p>কীভাবে প্রমাণ সংগ্রহ করব?</p>
+            </div>
+          </div>
+          <div class="flow-horizontal">
+            <div class="flow-item">Question</div>
+            <div class="flow-arrow"><i class="fas fa-arrow-right"></i></div>
+            <div class="flow-item">Evidence</div>
+            <div class="flow-arrow"><i class="fas fa-arrow-right"></i></div>
+            <div class="flow-item">Method</div>
+            <div class="flow-arrow"><i class="fas fa-arrow-right"></i></div>
+            <div class="flow-item" style="background:linear-gradient(135deg,var(--accent),var(--highlight)); color:#fff; border:none;">Knowledge</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== SLIDE 03 — Research কেন করা হয়? ===== -->
+      <section class="slide" data-index="2">
+        <div class="slide-header">
+          <span class="slide-tag"><i class="fas fa-bullseye"></i> Motivation</span>
+          <span class="slide-number">03 / 24</span>
+        </div>
+        <div class="slide-body">
+          <h2>কেন Research করবেন?</h2>
+          <div class="cards-grid cols-5 mt-2">
+            <div class="card text-center">
+              <div class="card-icon-wrap" style="margin:0 auto 8px;"><i class="fas fa-lightbulb"></i></div>
+              <div class="card-number">০১</div>
+              <h3>নতুন জ্ঞান তৈরি</h3>
+            </div>
+            <div class="card text-center">
+              <div class="card-icon-wrap highlight" style="margin:0 auto 8px;"><i class="fas fa-tools"></i></div>
+              <div class="card-number">০২</div>
+              <h3>সমস্যার সমাধান</h3>
+            </div>
+            <div class="card text-center">
+              <div class="card-icon-wrap amber" style="margin:0 auto 8px;"><i class="fas fa-check-double"></i></div>
+              <div class="card-number">০৩</div>
+              <h3>Existing Knowledge যাচাই</h3>
+            </div>
+            <div class="card text-center">
+              <div class="card-icon-wrap highlight" style="margin:0 auto 8px;"><i class="fas fa-chart-line"></i></div>
+              <div class="card-number">০৪</div>
+              <h3>Data-driven Decision</h3>
+            </div>
+            <div class="card text-center">
+              <div class="card-icon-wrap" style="margin:0 auto 8px;"><i class="fas fa-graduation-cap"></i></div>
+              <div class="card-number">০৫</div>
+              <h3>Academic & Professional Growth</h3>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== SLIDE 04 — Research শুরু করার আগে ===== -->
+      <section class="slide" data-index="3">
+        <div class="slide-header">
+          <span class="slide-tag"><i class="fas fa-clipboard-check"></i> Preparation</span>
+          <span class="slide-number">04 / 24</span>
+        </div>
+        <div class="slide-body">
+          <h2>Research শুরু করার আগে ৩টি প্রশ্ন</h2>
+          <div class="cards-grid cols-3 mt-3 mb-3">
+            <div class="card text-center" style="padding:36px 22px;">
+              <div class="card-icon-wrap" style="margin:0 auto 12px; width:56px; height:56px; font-size:1.5rem;"><i class="fas fa-search"></i></div>
+              <div class="card-number">০১</div>
+              <h3 style="margin-top:6px;">আমি কী জানতে চাই?</h3>
+            </div>
+            <div class="card text-center" style="padding:36px 22px;">
+              <div class="card-icon-wrap highlight" style="margin:0 auto 12px; width:56px; height:56px; font-size:1.5rem;"><i class="fas fa-star"></i></div>
+              <div class="card-number">০২</div>
+              <h3 style="margin-top:6px;">এই প্রশ্নটি গুরুত্বপূর্ণ কেন?</h3>
+            </div>
+            <div class="card text-center" style="padding:36px 22px;">
+              <div class="card-icon-wrap amber" style="margin:0 auto 12px; width:56px; height:56px; font-size:1.5rem;"><i class="fas fa-database"></i></div>
+              <div class="card-number">০৩</div>
+              <h3 style="margin-top:6px;">এর উত্তর খুঁজতে কী ধরনের Evidence প্রয়োজন?</h3>
+            </div>
+          </div>
+          <div class="note-box highlight text-center" style="font-size:clamp(1rem,1.2vw,1.2rem); justify-content:center;">
+            <i class="fas fa-quote-left"></i>
+            <span>একটি ভালো Research শুরু হয় একটি ভালো প্রশ্ন থেকে।</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== SLIDE 05 — Topic নির্বাচন ===== -->
+      <section class="slide" data-index="4">
+        <div class="slide-header">
+          <span class="slide-tag"><i class="fas fa-flag"></i> Step 01</span>
+          <span class="slide-number">05 / 24</span>
+        </div>
+        <div class="slide-body">
+          <div class="step-badge"><i class="fas fa-crosshairs"></i> Step 01</div>
+          <h2>Research Topic নির্বাচন</h2>
+          <div class="cards-grid cols-3 mt-2 mb-3">
+            <div class="card" style="border-color:rgba(244,63,94,0.25);">
+              <div class="card-icon-wrap rose" style="margin-bottom:10px;"><i class="fas fa-expand"></i></div>
+              <div class="card-number" style="color:var(--rose);">Too Broad</div>
+              <p style="font-size:clamp(0.85rem,1vw,1.02rem); margin-top:6px; color:var(--text); font-weight:500;">বাংলাদেশের শিক্ষাব্যবস্থা</p>
+            </div>
+            <div class="card" style="border-color:rgba(59,130,246,0.3);">
+              <div class="card-icon-wrap" style="margin-bottom:10px;"><i class="fas fa-compress"></i></div>
+              <div class="card-number">Better</div>
+              <p style="font-size:clamp(0.85rem,1vw,1.02rem); margin-top:6px; color:var(--text); font-weight:500;">বাংলাদেশের বিশ্ববিদ্যালয় শিক্ষার্থীদের Online Learning-এর সমস্যা</p>
+            </div>
+            <div class="card" style="border-color:rgba(20,184,166,0.3); box-shadow:0 0 0 3px rgba(20,184,166,0.08);">
+              <div class="card-icon-wrap highlight" style="margin-bottom:10px;"><i class="fas fa-bullseye"></i></div>
+              <div class="card-number" style="color:var(--highlight);">Specific</div>
+              <p style="font-size:clamp(0.85rem,1vw,1.02rem); margin-top:6px; color:var(--text); font-weight:500;">বাংলাদেশের বিশ্ববিদ্যালয় শিক্ষার্থীদের Online Learning Participation কমে যাওয়ার কারণ</p>
+            </div>
+          </div>
+          <div class="flow-horizontal">
+            <div class="flow-item">Broad Topic</div>
+            <div class="flow-arrow"><i class="fas fa-arrow-right"></i></div>
+            <div class="flow-item">Focused Topic</div>
+            <div class="flow-arrow"><i class="fas fa-arrow-right"></i></div>
+            <div class="flow-item" style="background:linear-gradient(135deg,var(--accent),var(--highlight)); color:#fff; border:none;">Researchable Topic</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== SLIDE 06 — ভালো Research Topic ===== -->
+      <section class="slide" data-index="5">
+        <div class="slide-header">
+          <span class="slide-tag"><i class="fas fa-check-circle"></i> Criteria</span>
+          <span class="slide-number">06 / 24</span>
+        </div>
+        <div class="slide-body">
+          <h2>একটি ভালো Research Topic কেমন হবে?</h2>
+          <div class="cards-grid cols-3 mt-2 mb-3">
+            <div class="card"><div class="card-icon-wrap"><i class="fas fa-bullseye"></i></div><h3>Clear</h3><p>স্পষ্ট ও নির্দিষ্ট</p></div>
+            <div class="card"><div class="card-icon-wrap highlight"><i class="fas fa-crosshairs"></i></div><h3>Specific</h3><p>নির্দিষ্ট পরিসরে সীমাবদ্ধ</p></div>
+            <div class="card"><div class="card-icon-wrap amber"><i class="fas fa-link"></i></div><h3>Relevant</h3><p>প্রাসঙ্গিক ও গুরুত্বপূর্ণ</p></div>
+            <div class="card"><div class="card-icon-wrap highlight"><i class="fas fa-flask"></i></div><h3>Researchable</h3><p>গবেষণাযোগ্য</p></div>
+            <div class="card"><div class="card-icon-wrap"><i class="fas fa-check-circle"></i></div><h3>Feasible</h3><p>সম্পদ ও সময়ের মধ্যে সম্ভব</p></div>
+            <div class="card"><div class="card-icon-wrap amber"><i class="fas fa-smile"></i></div><h3>Interesting</h3><p>আগ্রহজনক</p></div>
+          </div>
+          <div class="note-box">
+            <i class="fas fa-check-circle"></i>
+            <span>Topic এমন হতে হবে যার উপর বাস্তবে Data সংগ্রহ ও Analysis করা সম্ভব।</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== SLIDE 07 — Research Question ===== -->
+      <section class="slide" data-index="6">
+        <div class="slide-header">
+          <span class="slide-tag"><i class="fas fa-question-circle"></i> Step 02</span>
+          <span class="slide-number">07 / 24</span>
+        </div>
+        <div class="slide-body">
+          <div class="step-badge"><i class="fas fa-question-circle"></i> Step 02</div>
+          <h2>Research Question তৈরি করুন</h2>
+          <p class="mb-2">Research Question হলো Research-এর মূল প্রশ্ন।</p>
+          <div class="cards-grid cols-3">
+            <div class="card">
+              <div class="card-icon-wrap"><i class="fas fa-tag"></i></div>
+              <div class="card-number">Topic</div>
+              <p style="margin-top:6px; font-weight:600; color:var(--text); font-size:1.05rem;">Online Learning</p>
+            </div>
+            <div class="card" style="border-color:rgba(245,158,11,0.3);">
+              <div class="card-icon-wrap amber"><i class="fas fa-exclamation-triangle"></i></div>
+              <div class="card-number" style="color:var(--amber);">Weak Question</div>
+              <p style="margin-top:6px; color:var(--text); font-weight:500;">Online Learning কি ভালো?</p>
+            </div>
+            <div class="card" style="border-color:rgba(20,184,166,0.35); box-shadow:0 0 0 3px rgba(20,184,166,0.08);">
+              <div class="card-icon-wrap highlight"><i class="fas fa-check-circle"></i></div>
+              <div class="card-number" style="color:var(--highlight);">Strong Question</div>
+              <p style="margin-top:6px; font-weight:600; color:var(--text);">বাংলাদেশের বিশ্ববিদ্যালয় শিক্ষার্থীদের Online Learning Participation-কে কোন কোন factor প্রভাবিত করে?</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== SLIDE 08 — Research Question Framework ===== -->
+      <section class="slide" data-index="7">
+        <div class="slide-header">
+          <span class="slide-tag"><i class="fas fa-cubes"></i> Framework</span>
+          <span class="slide-number">08 / 24</span>
+        </div>
+        <div class="slide-body">
+          <h2>একটি ভালো Research Question তৈরির Framework</h2>
+          <div class="flow-horizontal mt-2 mb-3">
+            <div class="flow-item" style="background:linear-gradient(135deg,var(--accent),var(--accent-dark)); color:#fff; border:none;">WHO</div>
+            <div class="flow-arrow" style="color:var(--text-light); font-size:1.2rem;">+</div>
+            <div class="flow-item" style="background:linear-gradient(135deg,var(--accent),var(--accent-dark)); color:#fff; border:none;">WHAT</div>
+            <div class="flow-arrow" style="color:var(--text-light); font-size:1.2rem;">+</div>
+            <div class="flow-item" style="background:linear-gradient(135deg,var(--accent),var(--accent-dark)); color:#fff; border:none;">WHERE</div>
+            <div class="flow-arrow" style="color:var(--text-light); font-size:1.2rem;">+</div>
+            <div class="flow-item" style="background:linear-gradient(135deg,var(--accent),var(--accent-dark)); color:#fff; border:none;">WHY / HOW</div>
+            <div class="flow-arrow" style="color:var(--text-light); font-size:1.2rem;">+</div>
+            <div class="flow-item" style="background:linear-gradient(135deg,var(--highlight),#0D9488); color:#fff; border:none;">CONTEXT</div>
+          </div>
+          <div class="cards-grid cols-4">
+            <div class="card"><div class="card-icon-wrap"><i class="fas fa-users"></i></div><div class="card-number">WHO</div><p>University Students</p></div>
+            <div class="card"><div class="card-icon-wrap highlight"><i class="fas fa-cube"></i></div><div class="card-number">WHAT</div><p>Online Learning Participation</p></div>
+            <div class="card"><div class="card-icon-wrap amber"><i class="fas fa-map-marker-alt"></i></div><div class="card-number">WHERE</div><p>Bangladesh</p></div>
+            <div class="card"><div class="card-icon-wrap highlight"><i class="fas fa-cog"></i></div><div class="card-number">HOW</div><p>What factors influence participation?</p></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== SLIDE 09 — Existing Research খুঁজুন ===== -->
+      <section class="slide" data-index="8">
+        <div class="slide-header">
+          <span class="slide-tag"><i class="fas fa-search"></i> Step 03</span>
+          <span class="slide-number">09 / 24</span>
+        </div>
+        <div class="slide-body">
+          <div class="step-badge"><i class="fas fa-search"></i> Step 03</div>
+          <h2>Existing Research খুঁজুন</h2>
+          <p class="mb-2">আগের গবেষণা জানা অত্যন্ত গুরুত্বপূর্ণ।</p>
+          <div class="cards-grid cols-3">
+            <div class="card"><div class="card-icon-wrap"><i class="fas fa-graduation-cap"></i></div><h3>Google Scholar</h3><p>বিশ্বের বৃহত্তম academic search engine</p></div>
+            <div class="card"><div class="card-icon-wrap highlight"><i class="fas fa-flask"></i></div><h3>ResearchGate</h3><p>Researchers-দের নেটওয়ার্ক</p></div>
+            <div class="card"><div class="card-icon-wrap amber"><i class="fas fa-book"></i></div><h3>ScienceDirect</h3><p>বিজ্ঞান ও প্রযুক্তির journal</p></div>
+            <div class="card"><div class="card-icon-wrap highlight"><i class="fas fa-leaf"></i></div><h3>Springer</h3><p>Academic publications</p></div>
+            <div class="card"><div class="card-icon-wrap"><i class="fas fa-microchip"></i></div><h3>IEEE Xplore</h3><p>Engineering & technology</p></div>
+            <div class="card"><div class="card-icon-wrap highlight"><i class="fas fa-heartbeat"></i></div><h3>PubMed</h3><p>Medical & life sciences</p></div>
+          </div>
+          <div class="note-box mt-2">
+            <i class="fas fa-exclamation-circle"></i>
+            <span>একই বিষয়ে আগে কী গবেষণা হয়েছে তা না জেনে Research শুরু করা উচিত নয়।</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== SLIDE 10 — Paper খোঁজা ===== -->
+      <section class="slide" data-index="9">
+        <div class="slide-header">
+          <span class="slide-tag"><i class="fas fa-keyboard"></i> Search</span>
+          <span class="slide-number">10 / 24</span>
+        </div>
+        <div class="slide-body">
+          <h2>Google Scholar দিয়ে Paper খোঁজা</h2>
+          <div class="search-interface">
+            <div class="search-icon"><i class="fas fa-search"></i></div>
+            <div class="search-query">
+              <span class="keyword">"online learning"</span> university students Bangladesh
+            </div>
+          </div>
+          <div class="flow-horizontal mb-3">
+            <div class="flow-item">online learning</div>
+            <div class="flow-arrow" style="color:var(--text-light);">+</div>
+            <div class="flow-item">university students</div>
+            <div class="flow-arrow" style="color:var(--text-light);">+</div>
+            <div class="flow-item">Bangladesh</div>
+          </div>
+          <h3 class="mb-1"><i class="fas fa-list-ol" style="color:var(--accent); margin-right:8px;"></i>Search Strategy</h3>
+          <div class="cards-grid cols-5">
+            <div class="card text-center"><div class="card-icon-wrap" style="margin:0 auto 6px; width:40px; height:40px; font-size:1rem;"><i class="fas fa-font"></i></div><div class="card-number">১</div><p>Main Keyword</p></div>
+            <div class="card text-center"><div class="card-icon-wrap highlight" style="margin:0 auto 6px; width:40px; height:40px; font-size:1rem;"><i class="fas fa-random"></i></div><div class="card-number">২</div><p>Synonyms</p></div>
+            <div class="card text-center"><div class="card-icon-wrap amber" style="margin:0 auto 6px; width:40px; height:40px; font-size:1rem;"><i class="fas fa-map-pin"></i></div><div class="card-number">৩</div><p>Location</p></div>
+            <div class="card text-center"><div class="card-icon-wrap highlight" style="margin:0 auto 6px; width:40px; height:40px; font-size:1rem;"><i class="fas fa-users"></i></div><div class="card-number">৪</div><p>Population</p></div>
+            <div class="card text-center"><div class="card-icon-wrap" style="margin:0 auto 6px; width:40px; height:40px; font-size:1rem;"><i class="fas fa-filter"></i></div><div class="card-number">৫</div><p>Specific Context</p></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== SLIDE 11 — Paper পড়া ===== -->
+      <section class="slide" data-index="10">
+        <div class="slide-header">
+          <span class="slide-tag"><i class="fas fa-book-reader"></i> Reading</span>
+          <span class="slide-number">11 / 24</span>
+        </div>
+        <div class="slide-body">
+          <h2>একটি Research Paper কীভাবে পড়বেন?</h2>
+          <div class="vertical-timeline mt-2">
+            <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-text">Title</div></div>
+            <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-text">Abstract</div></div>
+            <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-text">Introduction</div></div>
+            <div class="timeline-item"><div class="timeline-dot highlight"></div><div class="timeline-text">Research Question</div></div>
+            <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-text">Methodology</div></div>
+            <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-text">Results</div></div>
+            <div class="timeline-item"><div class="timeline-dot highlight"></div><div class="timeline-text">Discussion</div></div>
+            <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-text">Conclusion</div></div>
+          </div>
+          <div class="note-box highlight mt-2">
+            <i class="fas fa-lightbulb"></i>
+            <span>প্রথমবার পুরো Paper শুরু থেকে শেষ পর্যন্ত পড়ার প্রয়োজন নেই।</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== SLIDE 12 — Literature Review ===== -->
+      <section class="slide" data-index="11">
+        <div class="slide-header">
+          <span class="slide-tag"><i class="fas fa-layer-group"></i> Step 04</span>
+          <span class="slide-number">12 / 24</span>
+        </div>
+        <div class="slide-body">
+          <div class="step-badge"><i class="fas fa-layer-group"></i> Step 04</div>
+          <h2>Literature Review</h2>
+          <p class="mb-1">Literature Review মানে শুধু Paper-এর Summary লেখা নয়।</p>
+          <div class="flow-horizontal mb-3">
+            <div class="flow-item">Read</div>
+            <div class="flow-arrow"><i class="fas fa-arrow-right"></i></div>
+            <div class="flow-item">Compare</div>
+            <div class="flow-arrow"><i class="fas fa-arrow-right"></i></div>
+            <div class="flow-item">Connect</div>
+            <div class="flow-arrow"><i class="fas fa-arrow-right"></i></div>
+            <div class="flow-item">Evaluate</div>
+            <div class="flow-arrow"><i class="fas fa-arrow-right"></i></div>
+            <div class="flow-item" style="background:linear-gradient(135deg,var(--highlight),#0D9488); color:#fff; border:none;">Identify Gap</div>
+          </div>
+          <div class="table-wrap">
+            <table class="research-table">
+              <thead>
+                <tr>
+                  <th>Paper</th>
+                  <th>Method</th>
+                  <th>Sample</th>
+                  <th>Finding</th>
+                  <th>Limitation</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>Study A</td><td>Survey</td><td>200</td><td>Internet issue</td><td>Urban only</td></tr>
+                <tr><td>Study B</td><td>Interview</td><td>30</td><td>Motivation</td><td>Small sample</td></tr>
+                <tr><td>Study C</td><td>Mixed</td><td>500</td><td>Technical support</td><td>No rural data</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== SLIDE 13 — Research Gap ===== -->
+      <section class="slide" data-index="12">
+        <div class="slide-header">
+          <span class="slide-tag"><i class="fas fa-search-plus"></i> Step 05</span>
+          <span class="slide-number">13 / 24</span>
+        </div>
+        <div class="slide-body">
+          <div class="step-badge highlight"><i class="fas fa-search-plus"></i> Step 05</div>
+          <h2>Research Gap খুঁজুন</h2>
+          <p class="mb-2">Research Gap হলো Existing Research-এর এমন একটি জায়গা যেখানে এখনও:</p>
+          <div class="cards-grid cols-3 mb-3">
+            <div class="card"><div class="card-icon-wrap rose"><i class="fas fa-times-circle"></i></div><p>পর্যাপ্ত গবেষণা হয়নি</p></div>
+            <div class="card"><div class="card-icon-wrap amber"><i class="fas fa-question-circle"></i></div><p>প্রশ্নের উত্তর অসম্পূর্ণ</p></div>
+            <div class="card"><div class="card-icon-wrap"><i class="fas fa-users"></i></div><p>ভিন্ন Population দরকার</p></div>
+            <div class="card"><div class="card-icon-wrap highlight"><i class="fas fa-database"></i></div><p>নতুন Dataset দরকার</p></div>
+            <div class="card"><div class="card-icon-wrap amber"><i class="fas fa-cogs"></i></div><p>নতুন Method প্রয়োগ করা যায়</p></div>
+          </div>
+          <div class="flow-vertical" style="gap:4px;">
+            <div class="flow-item" style="min-width:auto; padding:8px 28px; font-size:0.9rem;">Existing Research</div>
+            <div class="flow-arrow"><i class="fas fa-arrow-down"></i></div>
+            <div class="flow-item" style="min-width:auto; padding:8px 28px; font-size:0.9rem;">Most studies focus on university students</div>
+            <div class="flow-arrow"><i class="fas fa-arrow-down"></i></div>
+            <div class="flow-item" style="min-width:auto; padding:8px 28px; font-size:0.9rem;">Very limited research on college students</div>
+            <div class="flow-arrow"><i class="fas fa-arrow-down"></i></div>
+            <div class="flow-item" style="background:linear-gradient(135deg,var(--highlight),#0D9488); color:#fff; font-size:1.15rem; padding:14px 40px; border:none; font-weight:800; letter-spacing:0.08em; box-shadow:0 0 30px var(--highlight-glow);">RESEARCH GAP</div>
+            <div class="flow-arrow"><i class="fas fa-arrow-down"></i></div>
+            <div class="flow-item" style="min-width:auto; padding:8px 28px; font-size:0.9rem;">New Research Opportunity</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== SLIDE 14 — Research Objective ===== -->
+      <section class="slide" data-index="13">
+        <div class="slide-header">
+          <span class="slide-tag"><i class="fas fa-flag-checkered"></i> Step 06</span>
+          <span class="slide-number">14 / 24</span>
+        </div>
+        <div class="slide-body">
+          <div class="step-badge"><i class="fas fa-flag-checkered"></i> Step 06</div>
+          <h2>Research Objective নির্ধারণ</h2>
+          <div class="note-box mb-3" style="font-size:clamp(0.95rem,1.15vw,1.15rem); font-weight:600;">
+            <i class="fas fa-bullseye"></i>
+            <span><strong>Main Objective:</strong> To identify the major factors affecting online learning participation among university students in Bangladesh.</span>
+          </div>
+          <h3 class="mb-1"><i class="fas fa-list-ol" style="color:var(--accent); margin-right:8px;"></i>Secondary Objectives</h3>
+          <div class="cards-grid cols-5">
+            <div class="card text-center"><div class="card-icon-wrap" style="margin:0 auto 6px; width:40px; height:40px; font-size:1rem;"><i class="fas fa-search"></i></div><div class="card-number">১</div><p>Identify major factors</p></div>
+            <div class="card text-center"><div class="card-icon-wrap highlight" style="margin:0 auto 6px; width:40px; height:40px; font-size:1rem;"><i class="fas fa-ruler"></i></div><div class="card-number">২</div><p>Measure their impact</p></div>
+            <div class="card text-center"><div class="card-icon-wrap amber" style="margin:0 auto 6px; width:40px; height:40px; font-size:1rem;"><i class="fas fa-balance-scale"></i></div><div class="card-number">৩</div><p>Compare different groups</p></div>
+            <div class="card text-center"><div class="card-icon-wrap highlight" style="margin:0 auto 6px; width:40px; height:40px; font-size:1rem;"><i class="fas fa-project-diagram"></i></div><div class="card-number">৪</div><p>Analyze relationships</p></div>
+            <div class="card text-center"><div class="card-icon-wrap" style="margin:0 auto 6px; width:40px; height:40px; font-size:1rem;"><i class="fas fa-lightbulb"></i></div><div class="card-number">৫</div><p>Provide recommendations</p></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== SLIDE 15 — Methodology ===== -->
+      <section class="slide" data-index="14">
+        <div class="slide-header">
+          <span class="slide-tag"><i class="fas fa-flask"></i> Step 07</span>
+          <span class="slide-number">15 / 24</span>
+        </div>
+        <div class="slide-body">
+          <div class="step-badge"><i class="fas fa-flask"></i> Step 07</div>
+          <h2>Research Methodology নির্বাচন</h2>
+          <div class="comparison-3 mt-2">
+            <div class="comparison-col">
+              <h3><i class="fas fa-chart-bar"></i> Quantitative</h3>
+              <div class="tag-list">
+                <span>Numbers</span><span>Survey</span><span>Statistics</span><span>Data Analysis</span>
+              </div>
+            </div>
+            <div class="comparison-col">
+              <h3><i class="fas fa-comments"></i> Qualitative</h3>
+              <div class="tag-list">
+                <span>Interview</span><span>Observation</span><span>Experience</span><span>Thematic Analysis</span>
+              </div>
+            </div>
+            <div class="comparison-col highlight-col">
+              <h3><i class="fas fa-layer-group"></i> Mixed Method</h3>
+              <div class="tag-list">
+                <span>Quantitative</span><span>+</span><span>Qualitative</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== SLIDE 16 — Data Collection ===== -->
+      <section class="slide" data-index="15">
+        <div class="slide-header">
+          <span class="slide-tag"><i class="fas fa-database"></i> Step 08</span>
+          <span class="slide-number">16 / 24</span>
+        </div>
+        <div class="slide-body">
+          <div class="step-badge"><i class="fas fa-database"></i> Step 08</div>
+          <h2>Data সংগ্রহ</h2>
+          <div class="two-col mt-2">
+            <div class="comparison-col">
+              <h3><i class="fas fa-user"></i> Primary Data</h3>
+              <ul class="card-checklist" style="list-style:none; padding:0; margin-top:8px;">
+                <li style="padding:5px 0;"><i class="fas fa-check"></i> Survey</li>
+                <li style="padding:5px 0;"><i class="fas fa-check"></i> Interview</li>
+                <li style="padding:5px 0;"><i class="fas fa-check"></i> Questionnaire</li>
+                <li style="padding:5px 0;"><i class="fas fa-check"></i> Observation</li>
+              </ul>
+            </div>
+            <div class="comparison-col highlight-col">
+              <h3><i class="fas fa-database"></i> Secondary Data</h3>
+              <ul class="card-checklist" style="list-style:none; padding:0; margin-top:8px;">
+                <li style="padding:5px 0;"><i class="fas fa-check"></i> Government Data</li>
+                <li style="padding:5px 0;"><i class="fas fa-check"></i> Research Dataset</li>
+                <li style="padding:5px 0;"><i class="fas fa-check"></i> Kaggle</li>
+                <li style="padding:5px 0;"><i class="fas fa-check"></i> Public Database</li>
+                <li style="padding:5px 0;"><i class="fas fa-check"></i> Existing Reports</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== SLIDE 17 — Data Analysis ===== -->
+      <section class="slide" data-index="16">
+        <div class="slide-header">
+          <span class="slide-tag"><i class="fas fa-chart-line"></i> Step 09</span>
+          <span class="slide-number">17 / 24</span>
+        </div>
+        <div class="slide-body">
+          <div class="step-badge"><i class="fas fa-chart-line"></i> Step 09</div>
+          <h2>Data Analysis</h2>
+          <div class="flow-vertical mb-3" style="gap:4px;">
+            <div class="flow-item" style="min-width:auto; padding:7px 28px; font-size:0.88rem;">Raw Data</div>
+            <div class="flow-arrow"><i class="fas fa-arrow-down"></i></div>
+            <div class="flow-item" style="min-width:auto; padding:7px 28px; font-size:0.88rem;">Data Cleaning</div>
+            <div class="flow-arrow"><i class="fas fa-arrow-down"></i></div>
+            <div class="flow-item" style="min-width:auto; padding:7px 28px; font-size:0.88rem;">Exploratory Analysis</div>
+            <div class="flow-arrow"><i class="fas fa-arrow-down"></i></div>
+            <div class="flow-item" style="min-width:auto; padding:7px 28px; font-size:0.88rem;">Statistical Analysis</div>
+            <div class="flow-arrow"><i class="fas fa-arrow-down"></i></div>
+            <div class="flow-item" style="min-width:auto; padding:7px 28px; font-size:0.88rem;">Visualization</div>
+            <div class="flow-arrow"><i class="fas fa-arrow-down"></i></div>
+            <div class="flow-item" style="background:linear-gradient(135deg,var(--highlight),#0D9488); color:#fff; min-width:auto; padding:7px 28px; font-size:0.88rem; border:none;">Insights</div>
+          </div>
+          <h3 class="mb-1"><i class="fas fa-tools" style="color:var(--accent); margin-right:8px;"></i>Tools</h3>
+          <div class="cards-grid cols-5">
+            <div class="card text-center"><div class="card-icon-wrap" style="margin:0 auto 6px; width:40px; height:40px; font-size:1rem;"><i class="fas fa-file-excel"></i></div><p>Excel</p></div>
+            <div class="card text-center"><div class="card-icon-wrap highlight" style="margin:0 auto 6px; width:40px; height:40px; font-size:1rem;"><i class="fab fa-python"></i></div><p>Python</p></div>
+            <div class="card text-center"><div class="card-icon-wrap amber" style="margin:0 auto 6px; width:40px; height:40px; font-size:1rem;"><i class="fas fa-database"></i></div><p>SQL</p></div>
+            <div class="card text-center"><div class="card-icon-wrap highlight" style="margin:0 auto 6px; width:40px; height:40px; font-size:1rem;"><i class="fas fa-chart-pie"></i></div><p>Power BI</p></div>
+            <div class="card text-center"><div class="card-icon-wrap" style="margin:0 auto 6px; width:40px; height:40px; font-size:1rem;"><i class="fas fa-calculator"></i></div><p>R / SPSS</p></div>
+          </div>
+          <p class="mt-2" style="font-size:clamp(0.8rem,0.95vw,0.95rem); color:var(--text-light); display:flex; align-items:center; gap:8px;">
+            <i class="fas fa-info-circle" style="color:var(--accent);"></i>
+            Tools depend on research requirements.
+          </p>
+        </div>
+      </section>
+
+      <!-- ===== SLIDE 18 — Data to Findings ===== -->
+      <section class="slide" data-index="17">
+        <div class="slide-header">
+          <span class="slide-tag"><i class="fas fa-chart-pie"></i> Findings</span>
+          <span class="slide-number">18 / 24</span>
+        </div>
+        <div class="slide-body">
+          <h2>Data থেকে Finding কীভাবে বের করবেন?</h2>
+          <div class="flow-horizontal mb-2" style="gap:4px;">
+            <div class="flow-item" style="font-size:0.78rem; padding:8px 16px;">500 Students Surveyed</div>
+            <div class="flow-arrow"><i class="fas fa-arrow-right"></i></div>
+            <div class="flow-item" style="font-size:0.78rem; padding:8px 16px;">72% Report Difficulty</div>
+            <div class="flow-arrow"><i class="fas fa-arrow-right"></i></div>
+            <div class="flow-item" style="font-size:0.78rem; padding:8px 16px;">Internet = Major Factor</div>
+            <div class="flow-arrow"><i class="fas fa-arrow-right"></i></div>
+            <div class="flow-item" style="font-size:0.78rem; padding:8px 16px;">Compare with Studies</div>
+            <div class="flow-arrow"><i class="fas fa-arrow-right"></i></div>
+            <div class="flow-item" style="background:linear-gradient(135deg,var(--highlight),#0D9488); color:#fff; font-size:0.78rem; padding:8px 16px; border:none;">Interpret Result</div>
+          </div>
+          <h3 class="mb-1 mt-2"><i class="fas fa-chart-bar" style="color:var(--accent); margin-right:8px;"></i>Example Research Data</h3>
+          <div class="chart-container">
+            <div class="chart-row">
+              <span class="chart-label">Internet</span>
+              <div class="chart-bar-track"><div class="chart-bar-fill" style="width:72%;">72%</div></div>
+            </div>
+            <div class="chart-row">
+              <span class="chart-label">Technical</span>
+              <div class="chart-bar-track"><div class="chart-bar-fill" style="width:54%;">54%</div></div>
+            </div>
+            <div class="chart-row">
+              <span class="chart-label">Motivation</span>
+              <div class="chart-bar-track"><div class="chart-bar-fill" style="width:42%;">42%</div></div>
+            </div>
+            <div class="chart-row">
+              <span class="chart-label">Environment</span>
+              <div class="chart-bar-track"><div class="chart-bar-fill" style="width:36%;">36%</div></div>
+            </div>
+          </div>
+          <p class="chart-note">* Example Research Data — fictional for illustration</p>
+          <div class="note-box highlight mt-2">
+            <i class="fas fa-quote-left"></i>
+            <span>Research শুধু Data দেখানো নয়; Data-এর অর্থ ব্যাখ্যা করাও Research-এর গুরুত্বপূর্ণ অংশ।</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== SLIDE 19 — Paper Structure ===== -->
+      <section class="slide" data-index="18">
+        <div class="slide-header">
+          <span class="slide-tag"><i class="fas fa-file-alt"></i> Step 10</span>
+          <span class="slide-number">19 / 24</span>
+        </div>
+        <div class="slide-body">
+          <div class="step-badge"><i class="fas fa-file-alt"></i> Step 10</div>
+          <h2>Research Paper লিখুন</h2>
+          <div class="vertical-timeline mt-2">
+            <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-text">Title</div></div>
+            <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-text">Abstract</div></div>
+            <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-text">Introduction</div></div>
+            <div class="timeline-item"><div class="timeline-dot highlight"></div><div class="timeline-text">Literature Review</div></div>
+            <div class="timeline-item"><div class="timeline-dot highlight"></div><div class="timeline-text">Research Gap</div></div>
+            <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-text">Objectives / Questions</div></div>
+            <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-text">Methodology</div></div>
+            <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-text">Results</div></div>
+            <div class="timeline-item"><div class="timeline-dot highlight"></div><div class="timeline-text">Discussion</div></div>
+            <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-text">Conclusion</div></div>
+            <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-text">Limitations</div></div>
+            <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-text">Future Research</div></div>
+            <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-text">References</div></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== SLIDE 20 — Complete Roadmap ===== -->
+      <section class="slide" data-index="19">
+        <div class="slide-header">
+          <span class="slide-tag"><i class="fas fa-route"></i> Roadmap</span>
+          <span class="slide-number">20 / 24</span>
+        </div>
+        <div class="slide-body" style="justify-content:center;">
+          <h2 class="text-center mb-3">আপনার Research Journey</h2>
+          <div class="flow-horizontal" style="gap:5px; flex-wrap:wrap; justify-content:center;">
+            <div class="flow-item" style="background:linear-gradient(135deg,var(--accent),var(--accent-dark)); color:#fff; font-size:0.72rem; padding:10px 14px; text-align:center; min-width:78px; border:none;">
+              <div style="font-weight:800; font-size:1rem;">০১</div>Topic
+            </div>
+            <div class="flow-arrow" style="color:var(--accent);"><i class="fas fa-arrow-right"></i></div>
+            <div class="flow-item" style="background:linear-gradient(135deg,var(--accent),var(--accent-dark)); color:#fff; font-size:0.72rem; padding:10px 14px; text-align:center; min-width:78px; border:none;">
+              <div style="font-weight:800; font-size:1rem;">০২</div>Question
+            </div>
+            <div class="flow-arrow" style="color:var(--accent);"><i class="fas fa-arrow-right"></i></div>
+            <div class="flow-item" style="background:linear-gradient(135deg,var(--accent),var(--accent-dark)); color:#fff; font-size:0.72rem; padding:10px 14px; text-align:center; min-width:78px; border:none;">
+              <div style="font-weight:800; font-size:1rem;">০৩</div>Literature
+            </div>
+            <div class="flow-arrow" style="color:var(--accent);"><i class="fas fa-arrow-right"></i></div>
+            <div class="flow-item" style="background:linear-gradient(135deg,var(--accent),var(--accent-dark)); color:#fff; font-size:0.72rem; padding:10px 14px; text-align:center; min-width:78px; border:none;">
+              <div style="font-weight:800; font-size:1rem;">০৪</div>Gap
+            </div>
+            <div class="flow-arrow" style="color:var(--accent);"><i class="fas fa-arrow-right"></i></div>
+            <div class="flow-item" style="background:linear-gradient(135deg,var(--highlight),#0D9488); color:#fff; font-size:0.72rem; padding:10px 14px; text-align:center; min-width:78px; border:none;">
+              <div style="font-weight:800; font-size:1rem;">০৫</div>Method
+            </div>
+            <div class="flow-arrow" style="color:var(--accent);"><i class="fas fa-arrow-right"></i></div>
+            <div class="flow-item" style="background:linear-gradient(135deg,var(--highlight),#0D9488); color:#fff; font-size:0.72rem; padding:10px 14px; text-align:center; min-width:78px; border:none;">
+              <div style="font-weight:800; font-size:1rem;">০৬</div>Data
+            </div>
+            <div class="flow-arrow" style="color:var(--accent);"><i class="fas fa-arrow-right"></i></div>
+            <div class="flow-item" style="background:linear-gradient(135deg,var(--highlight),#0D9488); color:#fff; font-size:0.72rem; padding:10px 14px; text-align:center; min-width:78px; border:none;">
+              <div style="font-weight:800; font-size:1rem;">০৭</div>Analysis
+            </div>
+            <div class="flow-arrow" style="color:var(--accent);"><i class="fas fa-arrow-right"></i></div>
+            <div class="flow-item" style="background:linear-gradient(135deg,var(--accent),var(--accent-dark)); color:#fff; font-size:0.72rem; padding:10px 14px; text-align:center; min-width:78px; border:none;">
+              <div style="font-weight:800; font-size:1rem;">০৮</div>Findings
+            </div>
+            <div class="flow-arrow" style="color:var(--accent);"><i class="fas fa-arrow-right"></i></div>
+            <div class="flow-item" style="background:linear-gradient(135deg,var(--primary),var(--secondary)); color:#fff; font-size:0.72rem; padding:10px 14px; text-align:center; min-width:78px; border:none;">
+              <div style="font-weight:800; font-size:1rem;">০৯</div>Paper
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== SLIDE 21 — Beginner Action Plan ===== -->
+      <section class="slide" data-index="20">
+        <div class="slide-header">
+          <span class="slide-tag"><i class="fas fa-calendar-check"></i> Action Plan</span>
+          <span class="slide-number">21 / 24</span>
+        </div>
+        <div class="slide-body">
+          <h2>আজ থেকেই কীভাবে শুরু করবেন?</h2>
+          <div class="cards-grid cols-4 mt-2">
+            <div class="card"><div class="card-icon-wrap"><i class="fas fa-crosshairs"></i></div><div class="card-number" style="color:var(--accent);">Day 01</div><h3>Topic নির্বাচন</h3><p>একটি Topic নির্বাচন করুন</p></div>
+            <div class="card"><div class="card-icon-wrap highlight"><i class="fas fa-question-circle"></i></div><div class="card-number" style="color:var(--accent);">Day 02</div><h3>Research Question</h3><p>Research Question তৈরি করুন</p></div>
+            <div class="card"><div class="card-icon-wrap amber"><i class="fas fa-search"></i></div><div class="card-number" style="color:var(--accent);">Day 03</div><h3>Paper খুঁজুন</h3><p>১০টি Paper খুঁজুন</p></div>
+            <div class="card"><div class="card-icon-wrap highlight"><i class="fas fa-book-reader"></i></div><div class="card-number" style="color:var(--accent);">Day 04</div><h3>Reading</h3><p>Paper Reading + Notes</p></div>
+            <div class="card"><div class="card-icon-wrap"><i class="fas fa-search-plus"></i></div><div class="card-number" style="color:var(--highlight);">Day 05</div><h3>Research Gap</h3><p>Gap Identify করুন</p></div>
+            <div class="card"><div class="card-icon-wrap highlight"><i class="fas fa-flask"></i></div><div class="card-number" style="color:var(--highlight);">Day 06</div><h3>Methodology</h3><p>Methodology পরিকল্পনা</p></div>
+            <div class="card"><div class="card-icon-wrap amber"><i class="fas fa-file-alt"></i></div><div class="card-number" style="color:var(--highlight);">Day 07</div><h3>Proposal Draft</h3><p>Research Proposal Draft</p></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== SLIDE 22 — Common Mistakes ===== -->
+      <section class="slide" data-index="21">
+        <div class="slide-header">
+          <span class="slide-tag"><i class="fas fa-exclamation-triangle"></i> Mistakes</span>
+          <span class="slide-number">22 / 24</span>
+        </div>
+        <div class="slide-body">
+          <h2>Beginner Researcher-দের Common Mistakes</h2>
+          <div class="mistake-list mt-2">
+            <div class="mistake-item"><span class="icon-red"><i class="fas fa-times"></i></span> খুব বড় Topic নির্বাচন</div>
+            <div class="mistake-item"><span class="icon-red"><i class="fas fa-times"></i></span> Research Question ছাড়া শুরু করা</div>
+            <div class="mistake-item"><span class="icon-red"><i class="fas fa-times"></i></span> শুধু Google Search-এর উপর নির্ভর করা</div>
+            <div class="mistake-item"><span class="icon-red"><i class="fas fa-times"></i></span> Literature Review না করা</div>
+            <div class="mistake-item"><span class="icon-red"><i class="fas fa-times"></i></span> Research Gap না খোঁজা</div>
+            <div class="mistake-item"><span class="icon-red"><i class="fas fa-times"></i></span> Data সংগ্রহের আগে Methodology না ভাবা</div>
+            <div class="mistake-item"><span class="icon-red"><i class="fas fa-times"></i></span> Source/Citation ছাড়া তথ্য ব্যবহার করা</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== SLIDE 23 — Golden Rules ===== -->
+      <section class="slide" data-index="22">
+        <div class="slide-header">
+          <span class="slide-tag"><i class="fas fa-crown"></i> Golden Rules</span>
+          <span class="slide-number">23 / 24</span>
+        </div>
+        <div class="slide-body">
+          <h2>Research-এর ৭টি Golden Rules</h2>
+          <div class="golden-grid mt-2">
+            <div class="golden-item"><div class="golden-number">০১</div><div class="golden-text">Question First</div></div>
+            <div class="golden-item"><div class="golden-number">০২</div><div class="golden-text">Evidence Matters</div></div>
+            <div class="golden-item"><div class="golden-number">০৩</div><div class="golden-text">Read Before You Research</div></div>
+            <div class="golden-item"><div class="golden-number">০৪</div><div class="golden-text">Find the Gap</div></div>
+            <div class="golden-item"><div class="golden-number">০৫</div><div class="golden-text">Choose the Right Method</div></div>
+            <div class="golden-item"><div class="golden-number">০৬</div><div class="golden-text">Analyze, Don't Just Collect</div></div>
+            <div class="golden-item"><div class="golden-number">০৭</div><div class="golden-text">Document Everything</div></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== SLIDE 24 — FINAL ===== -->
+      <section class="slide final-slide" data-index="23">
+        <div class="final-content">
+          <h1>Research শুরু করার জন্য Perfect হওয়ার প্রয়োজন নেই</h1>
+          <p class="big-statement">
+            <strong>Start with a Question.<br>Find the Evidence.<br>Follow a Method.<br>Create Knowledge.</strong>
+          </p>
+          <div class="final-flow">
+            <span>Topic</span><span class="arrow">→</span>
+            <span>Question</span><span class="arrow">→</span>
+            <span>Literature</span><span class="arrow">→</span>
+            <span>Gap</span><span class="arrow">→</span>
+            <span>Method</span><span class="arrow">→</span>
+            <span>Data</span><span class="arrow">→</span>
+            <span>Analysis</span><span class="arrow">→</span>
+            <span>Research</span>
+          </div>
+          <p class="final-line">"আজ একটি প্রশ্ন দিয়ে শুরু করুন।"</p>
+        </div>
+      </section>
+
+    </div><!-- end slides-container -->
+
+    <!-- ===== NAVIGATION BAR ===== -->
+    <nav class="navigation" id="navigation" aria-label="Presentation navigation">
+      <div class="nav-left">
+        <button class="nav-btn" id="prevBtn" aria-label="Previous slide">
+          <i class="fas fa-chevron-left"></i>
+          <span class="btn-label">Previous</span>
+        </button>
+      </div>
+      <div class="nav-center">
+        <span class="slide-counter" id="slideCounter">01 / 24</span>
+        <div class="progress-bar-container">
+          <div class="progress-bar-fill" id="progressFill"></div>
+        </div>
+      </div>
+      <div class="nav-right">
+        <button class="nav-btn icon-only" id="tocBtn" aria-label="Table of Contents" title="Table of Contents">
+          <i class="fas fa-list-ul"></i>
+        </button>
+        <button class="nav-btn icon-only" id="darkModeBtn" aria-label="Toggle dark mode" title="Dark Mode">
+          <i class="fas fa-moon"></i>
+        </button>
+        <button class="nav-btn icon-only" id="fullscreenBtn" aria-label="Toggle fullscreen" title="Fullscreen">
+          <i class="fas fa-expand"></i>
+        </button>
+        <button class="nav-btn" id="nextBtn" aria-label="Next slide">
+          <span class="btn-label">Next</span>
+          <i class="fas fa-chevron-right"></i>
+        </button>
+      </div>
+    </nav>
+
+    <!-- ===== TABLE OF CONTENTS OVERLAY ===== -->
+    <div class="toc-overlay" id="tocOverlay" role="dialog" aria-modal="true" aria-label="Table of Contents">
+      <button class="toc-close" id="tocClose" aria-label="Close Table of Contents">
+        <i class="fas fa-times"></i>
+      </button>
+      <div class="toc-panel">
+        <h2><i class="fas fa-list-ul"></i> সূচিপত্র</h2>
+        <ul class="toc-list" id="tocList">
+          <li data-index="0"><span class="toc-num">01</span>Introduction</li>
+          <li data-index="4"><span class="toc-num">02</span>Research Topic</li>
+          <li data-index="6"><span class="toc-num">03</span>Research Question</li>
+          <li data-index="11"><span class="toc-num">04</span>Literature Review</li>
+          <li data-index="12"><span class="toc-num">05</span>Research Gap</li>
+          <li data-index="14"><span class="toc-num">06</span>Methodology</li>
+          <li data-index="15"><span class="toc-num">07</span>Data Collection</li>
+          <li data-index="16"><span class="toc-num">08</span>Data Analysis</li>
+          <li data-index="18"><span class="toc-num">09</span>Research Paper</li>
+          <li data-index="20"><span class="toc-num">10</span>Action Plan</li>
+        </ul>
+      </div>
+    </div>
+
+  </div><!-- end presentation -->
+</div><!-- end presentation-wrapper -->
+
+<script>
+  /* ===== PRESENTATION LOGIC ===== */
+  (function() {
+    'use strict';
+
+    // DOM elements
+    const slides = document.querySelectorAll('.slide');
+    const totalSlides = slides.length;
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const slideCounter = document.getElementById('slideCounter');
+    const progressFill = document.getElementById('progressFill');
+    const tocBtn = document.getElementById('tocBtn');
+    const tocOverlay = document.getElementById('tocOverlay');
+    const tocClose = document.getElementById('tocClose');
+    const tocList = document.getElementById('tocList');
+    const fullscreenBtn = document.getElementById('fullscreenBtn');
+    const darkModeBtn = document.getElementById('darkModeBtn');
+    const presentation = document.getElementById('presentation');
+
+    let currentSlide = 0;
+    let isTransitioning = false;
+
+    /* ===== UTILITY: Zero-pad number ===== */
+    function pad(n) {
+      return n < 10 ? '0' + n : '' + n;
+    }
+
+    /* ===== UPDATE UI (counter, progress, buttons) ===== */
+    function updateUI() {
+      // Counter
+      slideCounter.textContent = pad(currentSlide + 1) + ' / ' + pad(totalSlides);
+
+      // Progress bar
+      const progress = ((currentSlide + 1) / totalSlides) * 100;
+      progressFill.style.width = progress + '%';
+
+      // Disable/Enable nav buttons
+      prevBtn.style.opacity = currentSlide === 0 ? '0.4' : '1';
+      prevBtn.style.pointerEvents = currentSlide === 0 ? 'none' : 'auto';
+      nextBtn.style.opacity = currentSlide === totalSlides - 1 ? '0.4' : '1';
+      nextBtn.style.pointerEvents = currentSlide === totalSlides - 1 ? 'none' : 'auto';
+    }
+
+    /* ===== SHOW SLIDE ===== */
+    function showSlide(index) {
+      if (isTransitioning) return;
+      if (index < 0 || index >= totalSlides) return;
+      if (index === currentSlide) return;
+
+      isTransitioning = true;
+
+      const oldSlide = slides[currentSlide];
+      const newSlide = slides[index];
+
+      oldSlide.classList.remove('active');
+      oldSlide.classList.add('previous');
+
+      newSlide.classList.add('active');
+      newSlide.classList.remove('previous');
+
+      setTimeout(function() {
+        oldSlide.classList.remove('previous');
+        isTransitioning = false;
+      }, 550);
+
+      currentSlide = index;
+      updateUI();
+    }
+
+    /* ===== NEXT SLIDE ===== */
+    function nextSlide() {
+      if (currentSlide < totalSlides - 1) {
+        showSlide(currentSlide + 1);
+      }
+    }
+
+    /* ===== PREVIOUS SLIDE ===== */
+    function previousSlide() {
+      if (currentSlide > 0) {
+        showSlide(currentSlide - 1);
+      }
+    }
+
+    /* ===== GO TO SPECIFIC SLIDE ===== */
+    function goToSlide(index) {
+      if (index >= 0 && index < totalSlides) {
+        showSlide(index);
+      }
+    }
+
+    /* ===== TOC OPEN/CLOSE ===== */
+    function openTOC() {
+      tocOverlay.classList.add('open');
+    }
+
+    function closeTOC() {
+      tocOverlay.classList.remove('open');
+    }
+
+    /* ===== FULLSCREEN ===== */
+    function toggleFullscreen() {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(function(err) {
+          console.warn('Fullscreen error:', err);
+        });
+      } else {
+        if (document.exitFullscreen) {
+          document.exitFullscreen();
+        }
+      }
+    }
+
+    /* ===== DARK MODE ===== */
+    function toggleDarkMode() {
+      presentation.classList.toggle('dark');
+      const isDark = presentation.classList.contains('dark');
+      darkModeBtn.innerHTML = isDark ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+    }
+
+    /* ===== EVENT LISTENERS ===== */
+    prevBtn.addEventListener('click', previousSlide);
+    nextBtn.addEventListener('click', nextSlide);
+    fullscreenBtn.addEventListener('click', toggleFullscreen);
+    darkModeBtn.addEventListener('click', toggleDarkMode);
+
+    tocBtn.addEventListener('click', openTOC);
+    tocClose.addEventListener('click', closeTOC);
+
+    // Close TOC on overlay background click
+    tocOverlay.addEventListener('click', function(e) {
+      if (e.target === tocOverlay) {
+        closeTOC();
+      }
+    });
+
+    // TOC item click navigation
+    tocList.addEventListener('click', function(e) {
+      const li = e.target.closest('li');
+      if (li && li.dataset.index !== undefined) {
+        const idx = parseInt(li.dataset.index, 10);
+        goToSlide(idx);
+        closeTOC();
+      }
+    });
+
+    // Keyboard navigation
+    document.addEventListener('keydown', function(e) {
+      if (tocOverlay.classList.contains('open')) {
+        if (e.key === 'Escape') {
+          closeTOC();
+          e.preventDefault();
+        }
+        return;
+      }
+
+      switch (e.key) {
+        case 'ArrowRight':
+        case ' ':
+          e.preventDefault();
+          nextSlide();
+          break;
+        case 'ArrowLeft':
+          e.preventDefault();
+          previousSlide();
+          break;
+        case 'Home':
+          e.preventDefault();
+          goToSlide(0);
+          break;
+        case 'End':
+          e.preventDefault();
+          goToSlide(totalSlides - 1);
+          break;
+        case 'Escape':
+          if (document.fullscreenElement) {
+            document.exitFullscreen();
+          }
+          break;
+        case 'f':
+        case 'F':
+          if (!e.ctrlKey && !e.metaKey) {
+            e.preventDefault();
+            toggleFullscreen();
+          }
+          break;
+      }
+    });
+
+    // Fullscreen change event
+    document.addEventListener('fullscreenchange', function() {
+      const isFullscreen = !!document.fullscreenElement;
+      fullscreenBtn.innerHTML = isFullscreen
+        ? '<i class="fas fa-compress"></i>'
+        : '<i class="fas fa-expand"></i>';
+    });
+
+    /* ===== INITIAL SETUP ===== */
+    function init() {
+      slides.forEach(function(s, i) {
+        if (i === 0) {
+          s.classList.add('active');
+        } else {
+          s.classList.remove('active');
+        }
+        s.classList.remove('previous');
+      });
+      currentSlide = 0;
+      updateUI();
+    }
+
+    init();
+
+    // Expose for debugging
+    window.presentation = {
+      nextSlide: nextSlide,
+      previousSlide: previousSlide,
+      goToSlide: goToSlide,
+      getCurrentSlide: function() { return currentSlide; },
+      totalSlides: totalSlides
+    };
+
+  })();
+</script>
+
+</body>
+</html>
